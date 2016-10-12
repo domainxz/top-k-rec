@@ -41,14 +41,23 @@ To simplify the installation of Python 2.7, I use Anaconda 2.4.1.</br>
 The dependencies are [GNU Scientific Library (GSL ver. 1.14)](https://www.gnu.org/software/gsl/), [theano (ver 0.8)] (http://deeplearning.net/software/theano/).</br>
 After forking, you should configure several things before running the code:</br>
 - Download GSL and Anaconda then install, use pip to install theano;
-- Enter directory 'cr', modify the Makefile to configure the library path of GSL, and compile:
+- Enter directory 'cr', modify the Makefile to configure the library path of GSL, and compile;
+- Create the directories for the upcoming models. </br>
+
+If you are OK with using the project directory as workspace, please run intialize.sh:</br>
 ```
-cd cr && make && cd ..
+chmod +x initialize.sh
+sh initialize.sh
 ```
-To run the training script of CER and DPM, you can use following commands:
+Enter directory 'method' to run the training script of CER and DPM.</br>
+You can use following commands (let me use content 'tfidf' as example):
 ```
-python methods/clr_train.py -fp contents/tfidf.npy -fn tfidf -wd model-path-in-your-experiment
-python methods/dpm_train.py -fp contents/tfidf.npy -fn tfidf -wd model-path-in-your-experiment
+python clr_train.py -fp ../contents/tfidf.npy -fn tfidf -wd ../models/cer
+python dpm_train.py -fp ../contents/tfidf.npy -fn tfidf -wd ../models/dpm
+```
+To evaluate CER and DPM, setting the variable 'model_root' (default is '../models/cer') in test.py, then run:
+```
+python test.py
 ```
 ## **External Data**</br>
 Due to the file size limitation, the data for training and testing are maintained on other services.</br>
