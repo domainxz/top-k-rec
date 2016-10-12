@@ -49,7 +49,7 @@ If you are OK with using the project directory as workspace, please run intializ
 chmod +x initialize.sh
 sh initialize.sh
 ```
-Enter directory 'method' to run the training script of CER and DPM.</br>
+Enter directory 'methods' to run the training script of CER and DPM.</br>
 You can use following commands (let me use content 'tfidf' as example):
 ```
 python clr_train.py -fp ../contents/tfidf.npy -fn tfidf -wd ../models/cer
@@ -83,5 +83,5 @@ The 5-fold experimental data can be downloaded from below link:</br>
 <a href="https://drive.google.com/open?id=0Bz6bXb44ws2WcGtyNGltajJTcWc">Google Drive</a>&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;<a href="http://pan.baidu.com/s/1jHPBVgy">Baidu Yunpan</a></br>
 The content features can be downloaded from below link:</br>
 <a href="https://drive.google.com/open?id=0Bz6bXb44ws2WUXBuVGwzNDBlQXM">Google Drive</a>&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;<a href="http://pan.baidu.com/s/1kVuHWnP">Baidu Yunpan</a></br>
-To make the code run correctly, these extenal data shoule be put to the project directory.
+To make the code run correctly, these extenal data should be put to the project directory.
 
