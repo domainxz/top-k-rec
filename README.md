@@ -59,8 +59,22 @@ To evaluate CER and DPM, setting the variable 'model_root' (default is '../model
 ```
 python test.py
 ```
+To train BPR and VBPR, you can use following commands:
+```
+python bpr_train.py
+python vbpr_train.py
+```
+To evaluate BPR and VBPR, you can use following commands:
+```
+python bpr_test.py
+python vbpr_test.py
+```
+To evaluate our proposed fusion method, you can use following commands:
+```
+python pfusion.py
+```
 ## **External Data**</br>
-Due to the file size limitation, the data for training and testing are maintained on other services.</br>
+Due to the file size limitation, the data for training and testing are maintained by other services.</br>
 The 5-fold experimental data can be downloaded from below link:</br>
 <a href="https://drive.google.com/open?id=0Bz6bXb44ws2WcGtyNGltajJTcWc">Google Drive</a>&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;<a href="http://pan.baidu.com/s/1jHPBVgy">Baidu Yunpan</a></br>
 The content features can be downloaded from below link:</br>
