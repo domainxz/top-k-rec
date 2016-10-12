@@ -69,9 +69,13 @@ To evaluate BPR and VBPR, you can use following commands:
 python bpr_test.py
 python vbpr_test.py
 ```
-To evaluate our proposed fusion method, you can use following commands:
+To evaluate the fusion methods, you can use following commands:
 ```
-python pfusion.py
+python pfusion.py // the proposed fusion method
+python afusion.py // the average fusion method
+python bfusion.py // the bpr based fusion method
+python efusion.py // the error based fusion method, the error is measured by RMSE
+python sfusion.py // the svm based fusion method
 ```
 ## **External Data**</br>
 Due to the file size limitation, the data for training and testing are maintained by other services.</br>
@@ -79,4 +83,5 @@ The 5-fold experimental data can be downloaded from below link:</br>
 <a href="https://drive.google.com/open?id=0Bz6bXb44ws2WcGtyNGltajJTcWc">Google Drive</a>&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;<a href="http://pan.baidu.com/s/1jHPBVgy">Baidu Yunpan</a></br>
 The content features can be downloaded from below link:</br>
 <a href="https://drive.google.com/open?id=0Bz6bXb44ws2WUXBuVGwzNDBlQXM">Google Drive</a>&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;<a href="http://pan.baidu.com/s/1kVuHWnP">Baidu Yunpan</a></br>
+To make the code run correctly, these extenal data shoule be put to the project directory.
 
