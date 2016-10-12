@@ -3,13 +3,13 @@ import numpy as np
 from bpr import BPR
 import os, sys
 
+model_root = '../models/bpr'
 vid = '../complete/vid';
 tridpath = '../complete/f%dtr.idl';
 trpath = '../complete/f%dtr.txt';
 dimension = 50;
 iteration = 5;
 fold      = 5;
-model_root = ''
 modelpath  = os.path.join(model_root, '/%d.bpr');
 
 def get_all_vids(vidpath):

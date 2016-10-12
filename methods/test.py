@@ -9,7 +9,7 @@ import cPickle as pickle
 from sklearn import metrics
 import os
 
-model_root = '';
+model_root = '../models/cer';
 fold  = 5;
 scenarios = ['im', 'om'];
 feats     = ['meta','tfidf','mfcc','idt','cnnfv','cnnvlad','mosift','osift'];

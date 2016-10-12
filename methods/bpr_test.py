@@ -3,7 +3,7 @@ import numpy as np
 import theano.tensor as T
 import os, sys
 
-model_root = '';
+model_root = '../models/bpr';
 vid = '../complete/vid';
 teidpath = '../complete/f%dte.%s.idl';
 tepath = '../complete/f%dte.%s.txt'

@@ -5,7 +5,7 @@ from vbpr import VBPR
 import scipy.sparse as ss
 import os, sys
 
-model_root = '';
+model_root = '../models/vbpr';
 vid = '../complete/vid';
 teidpath = '../complete/f%dte.%s.idl';
 tepath = '../complete/f%dte.%s.txt'

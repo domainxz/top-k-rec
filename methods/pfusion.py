@@ -8,7 +8,7 @@ import cPickle as pickle
 import numpy as np
 import os, sys
 
-model_root = ''
+model_root = '../models/cer'
 uidpath  = '../complete/uid';
 vidpath  = '../complete/vid';
 tridpath = '../complete/f%dtr.idl';

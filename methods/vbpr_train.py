@@ -4,7 +4,7 @@ from vbpr import VBPR
 import os, sys
 import scipy.sparse as ss
 
-model_root = '';
+model_root = '../models/vbpr';
 vid = '../complete/vid';
 tridpath = '../complete/f%dtr.idl';
 trpath = '../complete/f%dtr.txt';
