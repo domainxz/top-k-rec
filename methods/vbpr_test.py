@@ -16,14 +16,14 @@ total     = 30;
 step      = 5;
 interval  = total / step;
 fpath = {
-          'meta':'../features/meta.npy',
-          'tfidf':'../features/tfidf.npy',
-          'cnnfv':'../features/cnn.fv.trans',
-          'cnnvlad':'../features/cnn.vlad.trans',
-          'idt':'../features/idt.trans',
-          'mosift':'../features/mosift.trans',
-          'osift':'../features/osift.trans',
-          'mfcc':'../features/mfcc.trans'
+          'meta':'../contents/meta.npy',
+          'tfidf':'../contents/tfidf.npy',
+          'cnnfv':'../contents/cnn.fv.trans',
+          'cnnvlad':'../contents/cnn.vlad.trans',
+          'idt':'../contents/idt.trans',
+          'mosift':'../contents/mosift.trans',
+          'osift':'../contents/osift.trans',
+          'mfcc':'../contents/mfcc.trans'
          }
 modelpath = os.path.join(model_root, '/%s.%d.vbpr');
 
