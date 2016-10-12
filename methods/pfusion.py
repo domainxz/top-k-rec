@@ -110,7 +110,7 @@ def get_test_vids(teidpath):
     return teiids, invids;
 
 def main():
-    ps = np.arange(0.05,1.0,0.05);
+    ps = np.arange(0.1,1.0,0.1);
     results = {'im':dict(),'om':dict()};
     vids = get_all_ids(vidpath);
     uids = get_all_ids(uidpath);
