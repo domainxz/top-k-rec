@@ -90,6 +90,7 @@ def main():
             if vid in tevids:
                 Vim[vmap[vid],:] = Vom[vmap[vid],:];
         writeVl(Vim, '%s/final-V.dat'%wdir);
+        writeVl(E, '%s/final-E.dat'%wdir);
         print 'Training on fold %d with %s finished!'%(i, args.fname);
 
 if __name__ == '__main__':
