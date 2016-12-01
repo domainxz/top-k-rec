@@ -83,6 +83,6 @@ The 5-fold experimental data can be downloaded from below link:</br>
 <a href="https://drive.google.com/open?id=0Bz6bXb44ws2WcGtyNGltajJTcWc">Google Drive</a>&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;<a href="http://pan.baidu.com/s/1jHPBVgy">Baidu Yunpan</a></br>
 The content features can be downloaded from below link:</br>
 <a href="https://drive.google.com/open?id=0Bz6bXb44ws2WUXBuVGwzNDBlQXM">Google Drive</a>&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;<a href="http://pan.baidu.com/s/1kVuHWnP">Baidu Yunpan</a></br>
-To make the code run correctly, these extenal data should be put to the project directory.
+To make the code run correctly, these extenal data should be put to the project directory.</br>
 The original 10380 videos can be downloaded from below link:</br>
 <a href="http://pan.baidu.com/s/1jIDdAwI">Baidu Yunpan</a></br>
