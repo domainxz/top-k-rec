@@ -89,12 +89,7 @@ The original 10380 videos can be downloaded from below link:</br>
 ## **Reference**</br>
 If you use above codes or data, please cite the paper below:</br>
 @article{VCRS, </br>
-  author    = {Xingzhong Du and </br>
-               Hongzhi Yin and </br>
-               Ling Chen and </br>
-               Yang Wang and </br> 
-               Yi Yang and </br>
-               Xiaofang Zhou}, </br>
+  author    = {Xingzhong Du and Hongzhi Yin and Ling Chen and Yang Wang and Yi Yang and Xiaofang Zhou}, </br>
   title     = {Exploiting Rich Contents for Personalized Video Recommendation}, </br>
   journal   = {CoRR}, </br>
   volume    = {abs/1612.06935}, </br>
