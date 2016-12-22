@@ -88,15 +88,15 @@ The original 10380 videos can be downloaded from below link:</br>
 <a href="http://pan.baidu.com/s/1jIDdAwI">Baidu Yunpan</a></br>
 ## **Reference**</br>
 If you use above codes or data, please cite the paper below:</br>
-@article{VCRS,
-  author    = {Xingzhong Du and
-               Hongzhi Yin and
-               Ling Chen and
-               Yang Wang and 
-               Yi Yang and 
-               Xiaofang Zhou},
-  title     = {Exploiting Rich Contents for Personalized Video Recommendation},
-  journal   = {CoRR},
-  volume    = {abs/1612.06935},
-  year      = {2016}
-}
+@article{VCRS, </br>
+  author    = {Xingzhong Du and </br>
+               Hongzhi Yin and </br>
+               Ling Chen and </br>
+               Yang Wang and </br> 
+               Yi Yang and </br>
+               Xiaofang Zhou}, </br>
+  title     = {Exploiting Rich Contents for Personalized Video Recommendation}, </br>
+  journal   = {CoRR}, </br>
+  volume    = {abs/1612.06935}, </br>
+  year      = {2016} </br>
+} </br>
