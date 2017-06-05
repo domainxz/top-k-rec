@@ -1,7 +1,7 @@
 # Top-k Recommendation
 ## **Introduction**</br>
-I have moved the repositery to bitbucket since bitbucket supports free private project.
-You can access the corresponding project from <a href="https://bitbucket.org/dxz/top-k-rec/overview">here</a>.</br>
+### I have moved the repositery to bitbucket since bitbucket supports free private project.
+### You can access the corresponding project from <a href="https://bitbucket.org/dxz/top-k-rec/overview">here</a>.</br>
 
 A method collection for top-k recommendation</br>
 The collection consists of following methods:</br>
