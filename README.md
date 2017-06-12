@@ -10,7 +10,6 @@ It is only applicable in in-matrix recommendation scenario. </br>
 * <a href="https://arxiv.org/abs/1510.01784">Visual Bayesion Personalized Ranking (VBPR)</a></br>
 VBPR is the extension of BPR to combine visual contents in the rating prediction. </br>
 It can recommend videos in both in-matrix and out-of-matrix recommendation scenarios. </br>
-</br>
 * <a href="https://papers.nips.cc/paper/5004-deep-content-based-music-recommendation">DeepMusic (DPM)</a></br>
 DPM uses multiple layer perceprion (MLP) to learn the content latent vectors from MFCC. </br>
 It recommends videos in both in-matrix and out-of-matrix recommendation scenarios. </br>
