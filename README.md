@@ -1,42 +1,41 @@
 # Top-k Recommendation
 ## **Introduction**</br>
-### I have moved the repositery to bitbucket since bitbucket supports free private project.
-### You can access the corresponding project from <a href="https://bitbucket.org/dxz/top-k-rec/overview">here</a>.</br>
 
 A method collection for top-k recommendation</br>
 The collection consists of following methods:</br>
 <p>
-- <a href="https://arxiv.org/abs/1205.2618">Bayesian Personalized Ranking (BPR)</a></br>
+× <a href="https://arxiv.org/abs/1205.2618">Bayesian Personalized Ranking (BPR)</a></br>
 BPR is the very first version of the BPR based methods. </br>
 It is only applicable in in-matrix recommendation scenario. </br>
 </br>
-- <a href="https://arxiv.org/abs/1510.01784">Visual Bayesion Personalized Ranking (VBPR)</a></br>
+× <a href="https://arxiv.org/abs/1510.01784">Visual Bayesion Personalized Ranking (VBPR)</a></br>
 VBPR is the extension of BPR to combine visual contents in the rating prediction. </br>
 It can recommend videos in both in-matrix and out-of-matrix recommendation scenarios. </br>
 </br>
-- <a href="https://papers.nips.cc/paper/5004-deep-content-based-music-recommendation">DeepMusic (DPM)</a></br>
+× <a href="https://papers.nips.cc/paper/5004-deep-content-based-music-recommendation">DeepMusic (DPM)</a></br>
 DPM uses multiple layer perceprion (MLP) to learn the content latent vectors from MFCC. </br>
 It recommends videos in both in-matrix and out-of-matrix recommendation scenarios. </br>
 </br>
-- <a href="">Collaborarive Embedding Regression (CER)</a><br>
+× <a href="">Collaborarive Embedding Regression (CER)</a></br>
 </p>
-
+</br>
+</br>
 Some methods have already released their source codes:
-- <a href="http://www.cs.columbia.edu/~blei/papers/WangBlei2011.pdf">Collaborative Topic Regression (CTR)</a>:
 <p>
+× <a href="http://www.cs.columbia.edu/~blei/papers/WangBlei2011.pdf">Collaborative Topic Regression (CTR)</a>:
 CTR uses LDA to learn the topic distribution from the textual content vectors, then performs the collaborative regression to learn the user and item latent vectors.</br>
 CTR can perform in-matrix and out-of-matrix recommendation but only with the textual content vectors.</br>
-The source code can be downloaded from <a href="http://www.cs.cmu.edu/~chongw/citeulike/">here</a>.
-</p>
-- <a href="https://arxiv.org/abs/1409.2944">Collaborative Deep Learning (CDL)</a>:
-<p>
+The source code can be downloaded from <a href="http://www.cs.cmu.edu/~chongw/citeulike/">here</a>.</br>
+</br>
+× <a href="https://arxiv.org/abs/1409.2944">Collaborative Deep Learning (CDL)</a></br>
 CDL uses stacked denoising auto-encoder (SDAE) to learn the content latent vectors, then performs the collaborative regression to learn the user and item latent vectors.</br>
 CDL can perform in-matrix and out-of-matrix recommendation.</br>
 The source code can be downloaded from <a href="http://www.wanghao.in/code/cdl-release.rar">here</a>.</br>
 CDL originally supports textual contents only.</br>
-We can make CDL support non-textual contents by replacing the binary visiable layer with Gaussian visiable layer.
+We can make CDL support non-textual contents by replacing the binary visiable layer with Gaussian visiable layer.</br>
 </p>
-
+</br>
+</br>
 ## **Instruction**</br>
 All the codes in the repository are written in Python 2.7.</br>
 To simplify the installation of Python 2.7, I use Anaconda 2.4.1.</br>
