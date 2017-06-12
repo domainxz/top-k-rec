@@ -5,22 +5,21 @@
 
 A method collection for top-k recommendation</br>
 The collection consists of following methods:</br>
+<p>
 - <a href="https://arxiv.org/abs/1205.2618">Bayesian Personalized Ranking (BPR)</a></br>
-<p>
 BPR is the very first version of the BPR based methods. </br>
-It is only applicable in in-matrix recommendation scenario.
-</p>
+It is only applicable in in-matrix recommendation scenario. </br>
+</br>
 - <a href="https://arxiv.org/abs/1510.01784">Visual Bayesion Personalized Ranking (VBPR)</a></br>
-<p>
 VBPR is the extension of BPR to combine visual contents in the rating prediction. </br>
-It can recommend videos in both in-matrix and out-of-matrix recommendation scenarios.
-</p>
+It can recommend videos in both in-matrix and out-of-matrix recommendation scenarios. </br>
+</br>
 - <a href="https://papers.nips.cc/paper/5004-deep-content-based-music-recommendation">DeepMusic (DPM)</a></br>
-<p>
-DPM uses multiple layer perceprion (MLP) to learn the content latent vectors from MFCC.</br>
-It recommends videos in both in-matrix and out-of-matrix recommendation scenarios.
-</p>
+DPM uses multiple layer perceprion (MLP) to learn the content latent vectors from MFCC. </br>
+It recommends videos in both in-matrix and out-of-matrix recommendation scenarios. </br>
+</br>
 - <a href="">Collaborarive Embedding Regression (CER)</a><br>
+</p>
 
 Some methods have already released their source codes:
 - <a href="http://www.cs.columbia.edu/~blei/papers/WangBlei2011.pdf">Collaborative Topic Regression (CTR)</a>:
