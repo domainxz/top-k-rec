@@ -5,7 +5,7 @@ A method collection for top-k recommendation</br>
 
 The collection consists of following methods:
 - <a href="https://arxiv.org/abs/1205.2618">Bayesian Personalized Ranking (BPR)</a></br>
-B - PR is the very first version of the BPR based methods. </br>
+  - BPR is the very first version of the BPR based methods. </br>
   - It is only applicable in in-matrix recommendation scenario. </br>
 - <a href="https://arxiv.org/abs/1510.01784">Visual Bayesion Personalized Ranking (VBPR)</a></br>
   - VBPR is the extension of BPR to combine visual contents in the rating prediction. </br>
