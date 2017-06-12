@@ -27,6 +27,7 @@ Some methods have already released their source codes:
   - CDL originally supports textual contents only.</br>
   - CDL can support non-textual contents by replacing the binary visiable layer with Gaussian visiable layer.</br>
 </br>
+
 ## **Instruction**</br>
 All the codes in the repository are written in Python 2.7.</br>
 To simplify the installation of Python 2.7, I use Anaconda 2.4.1.</br>
