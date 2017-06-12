@@ -60,7 +60,7 @@ def main():
     for word in vocabulary:
         wid = vocabulary[word];
         wweights[word] = wcounts[wid] * idf[wid];
-    topwords = sorted(wweights, key=wweights.get, reverse=True)[0:8000];
+    topwords = sorted(wweights, key=wweights.get, reverse=True)[0:args.number];
     tfidf = TfidfVectorizer(tokenizer=tokenize, stop_words='english', vocabulary=topwords, use_idf=False, norm=None);
     tfs = tfidf.fit_transform(itexts.values()).toarray().astype(np.float32);
     fid = open(mPath, 'w');
@@ -68,7 +68,7 @@ def main():
         count = np.sum(tfs[i,:]!=0);
         fid.write('%d'%count);
         if count != 0:
-            for j in range(8000):
+            for j in range(args.number):
                 if tfs[i,j] != 0:
                     fid.write(' %d:%d'%(j, int(tfs[i,j])));
         fid.write('\n');
