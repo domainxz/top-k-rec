@@ -40,8 +40,8 @@ def main():
     # Read and process data from csv
     for line in open(args.input):
         terms = line.strip().split(args.split);
-        iid    = int(terms[1]) - 1;
-        text   = terms[3];
+        iid    = int(terms[0]) - 1;
+        text   = terms[1];
         if iid not in itexts:
             itexts[iid] = '';
         no_punctuation = text.decode('utf8').encode('ascii','ignore').lower().translate(replace_punctuation);
