@@ -15,6 +15,7 @@ DPM uses multiple layer perceprion (MLP) to learn the content latent vectors fro
 It recommends videos in both in-matrix and out-of-matrix recommendation scenarios. </br>
 - <a href="">Collaborarive Embedding Regression (CER)</a></br>
 </br>
+
 Some methods have already released their source codes:
 - <a href="http://www.cs.columbia.edu/~blei/papers/WangBlei2011.pdf">Collaborative Topic Regression (CTR)</a></br>
   - CTR uses LDA to learn the topic distribution from the textual content vectors, then performs the collaborative regression to learn the user and item latent vectors.</br>
