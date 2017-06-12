@@ -19,7 +19,7 @@ Some methods have already released their source codes:
 - <a href="http://www.cs.columbia.edu/~blei/papers/WangBlei2011.pdf">Collaborative Topic Regression (CTR)</a></br>
   - CTR uses LDA to learn the topic distribution from the textual content vectors, then performs the collaborative regression to learn the user and item latent vectors.</br>
   - CTR can perform in-matrix and out-of-matrix recommendation but only with the textual content vectors.</br>
-The source code can be downloaded from <a href="http://www.cs.cmu.edu/~chongw/citeulike/">here</a>.</br>
+  - The source code can be downloaded from <a href="http://www.cs.cmu.edu/~chongw/citeulike/">here</a>.</br>
 - <a href="https://arxiv.org/abs/1409.2944">Collaborative Deep Learning (CDL)</a></br>
   - CDL uses stacked denoising auto-encoder (SDAE) to learn the content latent vectors, then performs the collaborative regression to learn the user and item latent vectors.</br>
   - CDL can perform in-matrix and out-of-matrix recommendation.</br>
