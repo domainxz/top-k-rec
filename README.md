@@ -2,6 +2,7 @@
 ## **Introduction**</br>
 
 A python code collection for top-k recommendation refactored by tensorflow</br>
+The old repository is in [here](old)</br>
 
 The collection consists of following methods:
 - <a href="https://arxiv.org/abs/1205.2618">Bayesian Personalized Ranking (BPR)</a></br>
