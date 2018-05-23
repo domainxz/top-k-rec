@@ -34,16 +34,15 @@ To simplify the installation of Python 3, please use Anaconda.</br>
 The dependencies are [numpy](http://www.numpy.org/), [scipy](https://www.scipy.org/scipylib), [tensorflow](https://www.tensorflow.org/).</br>
 After forking, you should configure several things before running the code:</br>
 - Use pip to install numpy, scipy, and tensorflow;
-- Create the directories for the upcoming models. </br>
+- Download datasets </br>
 
-If you are OK with using the project directory as workspace, please run intialize.sh:</br>
+For training bpr and vbpr, you can run
 ```
-chmod +x initialize.sh
-sh initialize.sh
+python train.py
 ```
 
 ## **Dataset**</br>
-Due to the file size limitation, the data for training and testing are maintained by other services.</br>
+Due to the file size limitation, the data for training and testing are hosted by other places.</br>
 The 5-fold experimental data can be downloaded from below link:</br>
 <a href="https://drive.google.com/open?id=0Bz6bXb44ws2WcGtyNGltajJTcWc">Google Drive</a>&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;<a href="http://pan.baidu.com/s/1jHPBVgy">Baidu Yunpan</a></br>
 The content features can be downloaded from below link:</br>
