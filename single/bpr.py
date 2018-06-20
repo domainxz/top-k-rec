@@ -13,7 +13,7 @@ import os
 import sys
 import tensorflow as tf
 import time
-from utils import get_train_data_from_file
+from utils import get_id_dict_from_file, get_data_from_file, export_embed_to_file
 
 class BPR(ABC):
     def __init__(self, k, lambda_u=2.5e-3, lambda_i=2.5e-3, lambda_j=2.5e-4, lambda_b=0, lr=1.0e-4, mode='l2'):
@@ -27,13 +27,15 @@ class BPR(ABC):
         self.tf_config.gpu_options.allow_growth=True;
         self.mode = mode;
     
-    def load_training_data(self, training_file, data_copy=False):
+    def load_training_data(self, training_file, uid_file, iid_file, data_copy=False):
         print ('Load training data from %s'%(training_file));
-        self.data, self.tr_uids, self.tr_iids = get_train_data_from_file(training_file);
+        self.uids = get_id_dict_from_file(uid_file);
+        self.iids = get_id_dict_from_file(iid_file);
+        self.data = get_data_from_file(training_file, self.uids, self.iids);
         self.epoch_sample_limit = len(self.data);
-        self.n_users = len(self.tr_uids);
-        self.n_items = len(self.tr_iids);
-        self.tr_data = self._data_to_training_dict(self.data, self.tr_uids, self.tr_iids);
+        self.n_users = len(self.uids);
+        self.n_items = len(self.iids);
+        self.tr_data = self._data_to_training_dict(self.data, self.uids, self.iids);
         self.tr_users = list(self.tr_data.keys());
         if not data_copy:
             del self.data;
@@ -71,7 +73,7 @@ class BPR(ABC):
         self.solver = tf.train.RMSPropOptimizer(self.lr).minimize(self.obj);
         return u, i, j;
 
-    def model_training(self, model_path, sampling='user uniform', epochs=10, batch_size=256):
+    def train(self, model_path, sampling='user uniform', epochs=5, batch_size=256):
         with tf.Graph().as_default():
             u, i, j = self.build_graph();
             batch_limit = self.epoch_sample_limit//batch_size + 1;
@@ -101,8 +103,9 @@ class BPR(ABC):
                     print();
             if os.path.exists(os.path.dirname(model_path)):
                 print ('Saving model to path %s'%(model_path))
-                saver = tf.train.Saver();
-                saver.save(sess, model_path);
+                export_embed_to_file(os.path.join(model_path, 'final-U.dat'), sess.run(self.__ue))
+                export_embed_to_file(os.path.join(model_path, 'final-V.dat'), sess.run(self.__ie))
+                export_embed_to_file(os.path.join(model_path, 'final-B.dat'), sess.run(tf.reshape(self.__ib, (-1,1))))
     
     def _uniform_user_sampling(self, batch_size): 
         ib = np.zeros(batch_size, dtype=np.int32);

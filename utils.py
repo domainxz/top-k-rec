@@ -26,23 +26,26 @@ def get_embed_from_file(file_path, ids):
             embed[ids[tid], k] = np.float32(terms[k]);
     return mat;
 
-def get_train_data_from_file(file_path):
+def export_embed_to_file(file_path, embed):
+    row, col = embed.shape;
+    with open(file_path, 'w') as f:
+        for i in range(row):
+            for j in range(col):
+                f.write('%f '%embed[i,j]);
+            f.write('\n');
+
+def get_data_from_file(file_path, uids, iids):
     data = list();
-    tr_uids = dict();
-    tr_iids = dict();
     for line in open(file_path, 'r'):
         terms = line.strip().split(',');
         uid   = terms[0];
-        if len(terms) > 1:
-            tr_uids[uid] = len(tr_uids);
+        if uid in uids and len(terms) > 1:
             for j in range(1, len(terms)):
                 iid  = terms[j].split(':')[0];
                 like = terms[j].split(':')[1];
-                if iid not in tr_iids:
-                    tr_iids[iid] = len(tr_iids);
-                if like == '1':
+                if iid in iids and like == '1':
                     data.append((uid, iid));
-    return data, tr_uids, tr_iids;
+    return data;
 
 def get_history_from_file(file_path):
     browsed = dict();

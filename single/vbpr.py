@@ -1,5 +1,5 @@
 """
-    Matrix Factorization (MF) based on Content-aware Bayesian Personalized Ranking (VBPR)
+    Matrix Factorization (MF) based on Content-aware Bayesian Personalized Ranking (CBPR)
     Sampling Method : uniform item sampling per user
     Author          : Xingzhong Du
     E-mail          : dxz.nju@gmail.com
@@ -8,7 +8,7 @@
 
 from .bpr import BPR
 from collections import defaultdict
-from utils import get_id_dict_from_file 
+from utils import get_id_dict_from_file, export_embed_to_file
 import numpy as np
 import os
 import pickle
@@ -25,14 +25,14 @@ class VBPR(BPR):
 
     def load_content_data(self, content_file, iid_file):
         print ('Load content data from %s'%(content_file));
-        iids = get_id_dict_from_file(iid_file);
+        fiids = get_id_dict_from_file(iid_file);
         self.feat = np.zeros((self.n_items, self.d), dtype=np.float32);
         feat = pickle.load(open(content_file, 'rb'), encoding='latin1');
         if ss.issparse(feat):
             feat = feat.toarray();
-        for trid in self.tr_iids:
-            if trid in iids:
-                self.feat[self.tr_iids[trid],:]=feat[iids[trid],:];
+        for iid in self.iids:
+            if iid in fiids:
+                self.feat[self.iids[iid],:]=feat[fiids[iid],:];
         print('Loading finished!');
         
     def build_graph(self):
@@ -63,8 +63,6 @@ class VBPR(BPR):
         x_uj  = tf.reduce_sum(tf.multiply(ureb, jreb)+tf.multiply(uceb, jceb), 1);
         x_uij = irbb - jrbb + x_ui - x_uj + tf.matmul(ic-jc, self.__icb);
         with tf.name_scope('output'):
-            self.predc = tf.matmul(uceb, tf.transpose(iceb))+tf.matmul(ic, self.__icb);
-            self.preda = self.predc + tf.matmul(ureb, tf.transpose(ireb)) + irbb
             if self.mode == 'l2':
                 self.obj = tf.reduce_sum(tf.log(1+tf.exp(-x_uij)))+\
                            0.5*tf.reduce_sum(self.__cem**2)*self.le+\
@@ -78,7 +76,7 @@ class VBPR(BPR):
         self.solver = tf.train.RMSPropOptimizer(self.lr).minimize(self.obj);
         return u, i, j, ic, jc;
 
-    def model_training(self, model_path, sampling='user uniform', epochs=10, batch_size=256):
+    def train(self, model_path, sampling='user uniform', epochs=5, batch_size=256):
         with tf.Graph().as_default():
             u, i, j, ic, jc = self.build_graph();
             batch_limit = self.epoch_sample_limit//batch_size + 1;
@@ -106,8 +104,8 @@ class VBPR(BPR):
                     sys.stderr.write(' ... total time collapse %10.4fs'%(total_time));
                     sys.stderr.flush();
                     print();
-            del self.feat;
             if os.path.exists(os.path.dirname(model_path)):
                 print ('Saving model to path %s'%(model_path))
-                saver = tf.train.Saver();
-                saver.save(sess, model_path);
+                export_embed_to_file(os.path.join(model_path, 'final-U.dat'), sess.run(tf.concat([self.__ure, self.__uce], 1)))
+                export_embed_to_file(os.path.join(model_path, 'final-V.dat'), sess.run(tf.concat([self.__ire, tf.matmul(self.feat, self.__cem)], 1)))
+                export_embed_to_file(os.path.join(model_path, 'final-B.dat'), sess.run(self.__irb+tf.matmul(self.feat, self.__icb)))
