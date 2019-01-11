@@ -43,12 +43,11 @@ python train.py
 ```
 
 ## **Dataset**</br>
-Due to the file size limitation, the data for training and testing are hosted by other places.</br>
-The 5-fold experimental data can be downloaded from below link:</br>
-<a href="https://drive.google.com/open?id=0Bz6bXb44ws2WcGtyNGltajJTcWc">Google Drive</a>&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;<a href="http://pan.baidu.com/s/1jHPBVgy">Baidu Yunpan</a></br>
-The content features can be downloaded from below link:</br>
-<a href="https://drive.google.com/open?id=0Bz6bXb44ws2WUXBuVGwzNDBlQXM">Google Drive</a>&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;<a href="http://pan.baidu.com/s/1kVuHWnP">Baidu Yunpan</a></br>
-To make the code run correctly, these extenal data should be put to the project directory.</br>
+Due to the file size limitation, datasets for training and testing are hosted by other places.</br>
+At present, we provide two datasets derived from Movielens 10M and Netflix:
+Movielens: <a href="https://drive.google.com/file/d/1nMhFTlWMEol9kbWx6SOQX_FF8IcK0WoI/view?usp=sharing">ratings</a> and <a href="https://drive.google.com/file/d/1FPhBhunJxLpULb_4JkjIiA1-0p-IruI1/view?usp=sharing">features</a>
+Netflix: <a href="https://drive.google.com/file/d/1VDfPeBfg2PpCIbKsQq6upgyjRN-asY-R/view?usp=sharing">rating</a> and <a href="https://drive.google.com/file/d/1O_76Wt6wblJkm3JYohU3X1hwH8uDziE-/view?usp=sharing">features</a>
+Please modify the access path inside code to make the execution correctly.</br>
 The original 10380 videos can be downloaded from below link:</br>
 <a href="http://pan.baidu.com/s/1jIDdAwI">Baidu Yunpan</a></br>
 ## **Reference**</br>
