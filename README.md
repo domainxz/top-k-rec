@@ -49,16 +49,18 @@ Movielens: <a href="https://drive.google.com/file/d/1nMhFTlWMEol9kbWx6SOQX_FF8Ic
 Netflix: <a href="https://drive.google.com/file/d/1VDfPeBfg2PpCIbKsQq6upgyjRN-asY-R/view?usp=sharing">rating</a> and <a href="https://drive.google.com/file/d/1O_76Wt6wblJkm3JYohU3X1hwH8uDziE-/view?usp=sharing">features</a><br>
 Each of them will have following data files for experiments:<br>
   - uid: 
-      - User id list where each line is a user id. The id sequence may not be continuous.<br>
+      - User id list where each line is a user id. The id sequence may not be continuous.
   - vid: 
-      - Video id list where each line is a video id. The id sequence may not be continuous.<br>
+      - Video id list where each line is a video id. The id sequence may not be continuous.
   - f?[tr|te][.|.im|.om].[idl|txt]:
-      - Rating related files where ? is the fold index, tr denotes training, te denotes testing, <br>
-        im denotes in-matrix, om indicate out-of-matrix, idl denotes id list and txt denotes rating file.<br>
-      - For rating files, each line that starts with a used id is filled with the corresponding item-rating pairs by commas. <br>
-        In each video-rating pair, 1 denotes like and 0 denotes dislike.
-<br>
-The input data files for ctr are also provided
+      - Rating related files where ? is the fold index, tr denotes training set, te denotes testing set, im denotes in-matrix evaluation, om indicate out-of-matrix evaluation, idl denotes id list and txt denotes rating file.
+      - Each line in rating files starts with a used id, and is filled with the corresponding item-rating pairs separated by commas. In each video-rating pair, 1 denotes like and 0 denotes dislike.
+      - For instance:
+        1. f2tr.txt contains the ratings in the training set 2
+        2. f1te.im.txt contains the ratings in the test set 2 for in-matrix evaluation
+        3. f1te.om.txt contains the ratings in the test set 2 for out-matrix evaluation
+  - The input data files for ctr are also provided. Their suffixes are 'mfp'.
+  - The feature files could be read by pickle in binary mode. The feature vectors are ranked according to the id list in vid.
 
 Please modify the access path inside code to make the execution correctly.</br>
 
