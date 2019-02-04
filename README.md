@@ -47,9 +47,25 @@ Due to the file size limitation, datasets for training and testing are hosted by
 At present, we provide two datasets derived from Movielens 10M and Netflix:<br>
 Movielens: <a href="https://drive.google.com/file/d/1nMhFTlWMEol9kbWx6SOQX_FF8IcK0WoI/view?usp=sharing">ratings</a> and <a href="https://drive.google.com/file/d/1FPhBhunJxLpULb_4JkjIiA1-0p-IruI1/view?usp=sharing">features</a><br>
 Netflix: <a href="https://drive.google.com/file/d/1VDfPeBfg2PpCIbKsQq6upgyjRN-asY-R/view?usp=sharing">rating</a> and <a href="https://drive.google.com/file/d/1O_76Wt6wblJkm3JYohU3X1hwH8uDziE-/view?usp=sharing">features</a><br>
+Each of them will have following data files for experiments:<br>
+  - uid: 
+      - User id list where each line is a user id. The id sequence may not be continuous.<br>
+  - vid: 
+      - Video id list where each line is a video id. The id sequence may not be continuous.<br>
+  - f?[tr|te][.|.im|.om].[idl|txt]:
+      - Rating related files where ? is the fold index, tr denotes training, te denotes testing, <br>
+        im denotes in-matrix, om indicate out-of-matrix, idl denotes id list and txt denotes rating file.<br>
+      - For rating files, each line that starts with a used id is filled with the corresponding item-rating pairs by commas. <br>
+        In each video-rating pair, 1 denotes like and 0 denotes dislike.
+<br>
+The input data files for ctr are also provided
+
 Please modify the access path inside code to make the execution correctly.</br>
+
 The original 10380 videos can be downloaded from below link:</br>
 <a href="http://pan.baidu.com/s/1jIDdAwI">Baidu Yunpan</a></br>
+
+
 ## **Reference**</br>
 If you use above codes or data, please cite the paper below:</br>
 @article{VCRS, </br>
