@@ -45,7 +45,7 @@ For evaluation, you can run
 ```
 python evaluate.py -d data -m embed/cer -f 0 -sl im om
 ```
-This will evaluate cer's performance in both in-matrix and out-of-matrix settings with content feature -- meta.<br>
+This will evaluate cer's performance in both in-matrix and out-of-matrix settings with content feature (In our example, this is meta).<br>
 By default, the evaluation will report accuracy@5,10,15,20,25 and 30.<br>
 
 ## **Dataset**</br>
