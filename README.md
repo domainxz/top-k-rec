@@ -37,10 +37,16 @@ After forking, you should configure several things before running the code:</br>
 - Use pip to install numpy, scipy, and tensorflow;
 - Download datasets </br>
 
-For training bpr and vbpr, you can run
+For training, you can run
 ```
 python train.py
 ```
+For evaluation, you can run
+```
+python evaluate.py -d data -m embed/cer -f 0 -sl im om -fl meta
+```
+This will evaluate cer's performance in both in-matrix and out-of-matrix settings with content feature -- meta.<br>
+By default, the evaluation will report accuracy@5,10,15,20,25 and 30.<br>
 
 ## **Dataset**</br>
 Due to the file size limitation, datasets for training and testing are hosted by other places.</br>
