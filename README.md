@@ -66,7 +66,7 @@ Each of them will have following data files for experiments:<br>
         2. f1te.im.txt contains the ratings in the test set 2 for in-matrix evaluation
         3. f1te.om.txt contains the ratings in the test set 2 for out-matrix evaluation
   - The input data files for ctr are also provided. Their suffixes are 'mfp'.
-  - The feature files could be read by pickle in binary mode. The feature vectors are ranked according to the id list in vid.
+  - The feature files could be read by pickle in binary mode. The feature vectors are aligned to the id list in vid.
 
 Please modify the access path inside code to make the execution correctly.</br>
 
