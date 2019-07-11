@@ -63,8 +63,8 @@ Each of them will have following data files for experiments:<br>
       - Each line in rating files starts with a used id, and is filled with the corresponding item-rating pairs separated by commas. In each video-rating pair, 1 denotes like and 0 denotes dislike.
       - For instance:
         1. f2tr.txt contains the ratings in the training set 2
-        2. f1te.im.txt contains the ratings in the test set 2 for in-matrix evaluation
-        3. f1te.om.txt contains the ratings in the test set 2 for out-matrix evaluation
+        2. f2te.im.txt contains the ratings in the test set 2 for in-matrix evaluation
+        3. f2te.om.txt contains the ratings in the test set 2 for out-matrix evaluation
   - The input data files for ctr are also provided. Their suffixes are 'mfp'.
   - The feature files could be read by pickle in binary mode. The feature vectors are aligned to the id list in vid.
 
@@ -77,8 +77,8 @@ The original 10380 videos can be downloaded from below link:</br>
 ## **Reference**</br>
 If you use above codes or data, please cite the paper below:</br>
 @article{VCRS, </br>
-  author    = {Xingzhong Du and Hongzhi Yin and Ling Chen and Yang Wang and Yi Yang and Xiaofang Zhou}, </br>
-  title     = {Personalized Video Recommendation Using Rich Contents from Videos}, </br>
-  journal   = {TKDE}, </br>
-  year      = {2019} </br>
+&nbsp;&nbsp;&nbsp;&nbsp;author    = {Xingzhong Du and Hongzhi Yin and Ling Chen and Yang Wang and Yi Yang and Xiaofang Zhou}, </br>
+&nbsp;&nbsp;&nbsp;&nbsp;title     = {Personalized Video Recommendation Using Rich Contents from Videos}, </br>
+&nbsp;&nbsp;&nbsp;&nbsp;journal   = {TKDE}, </br>
+&nbsp;&nbsp;&nbsp;&nbsp;year      = {2019} </br>
 } </br>
