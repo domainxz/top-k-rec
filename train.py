@@ -2,6 +2,7 @@ from single.bpr import BPR
 from single.vbpr import VBPR
 
 from single.wmf import WMF
+from single.dpm import DPM
 from single.cer import CER
 
 model = BPR(k=50);
@@ -20,4 +21,9 @@ model.train('embed/wmf', max_iter=200, tol=1e-4);
 model = CER(k=50, d=20000);
 model.load_train_data('data/uid', 'data/vid', 'data/f0tr.txt');
 model.load_content_data('data/meta.pkl', 'data/vid');
-model.train('embed/cer', max_iter=200);
+model.train('embed/cer', max_iter=200)
+
+model = DPM(k=50, d=20000);
+model.load_train_data('data/uid', 'data/vid', 'data/f0tr.txt');
+model.load_content_data('data/meta.pkl', 'data/vid');
+model.train('embed/cer', max_iter=200)
