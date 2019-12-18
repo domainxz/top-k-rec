@@ -26,4 +26,4 @@ model.train('embed/cer', max_iter=200)
 model = DPM(k=50, d=20000);
 model.load_train_data('data/uid', 'data/vid', 'data/f0tr.txt');
 model.load_content_data('data/meta.pkl', 'data/vid');
-model.train('embed/cer', max_iter=200)
+model.train('embed/dpm', max_iter=200)
