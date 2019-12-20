@@ -71,7 +71,7 @@ Each of them will have following data files for experiments:<br>
 Please modify the access path inside code to make the execution correctly.</br>
 
 The original 10380 videos can be downloaded from below link:</br>
-<a href="https://pan.baidu.com/s/1SC3pWVMyQkqHGa9bZpi3zA">Baidu Yunpan</a>, access code: ny8e</br>
+<a href="https://drive.google.com/drive/folders/1hK7WgQOqllsozB9oeVmbMPQtZ0w3rf9b?usp=sharing">Google Drive</a></br>
 
 ## **Reference**</br>
 If you use above codes or data, please cite the paper below:</br>
