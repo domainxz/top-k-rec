@@ -7,13 +7,13 @@ from .wmf import WMF
 
 
 class DPM(WMF):
-    def __init__(self, k: int, d: int, lu: float = 0.01, lv: float = 10, le: float = 10e3, a: float = 1, b: float = 0.01):
+    def __init__(self, k: int, d: int, lu: float = 0.01, lv: float = 10, le: float = 10e3, a: float = 1, b: float = 0.01) -> None:
         self.__sn = 'dpm'
         WMF.__init__(self, k, lu, lv, a, b)
         self.d = d
         self.le = le
 
-    def train(self, encoder: ENCODER, max_iter: int = 200):
+    def train(self, encoder: ENCODER, max_iter: int = 200) -> None:
         loss = np.exp(50)
         Ik = np.eye(self.k, dtype=np.float32)
         with tf.Graph().as_default():

@@ -14,12 +14,12 @@ from utils import tprint
 
 
 class VBPR(BPR):
-    def __init__(self, k: int, d: int, lambda_u: float = 2.5e-3, lambda_i: float = 2.5e-3, lambda_j: float = 2.5e-4, lambda_b: float = 0, lambda_e: float = 0, lr: float = 1.0e-4, mode: str = 'l2'):
+    def __init__(self, k: int, d: int, lambda_u: float = 2.5e-3, lambda_i: float = 2.5e-3, lambda_j: float = 2.5e-4, lambda_b: float = 0, lambda_e: float = 0, lr: float = 1.0e-4, mode: str = 'l2') -> None:
         BPR.__init__(self, k, lambda_u, lambda_i, lambda_j, lambda_b, lr, mode)
         self.d = d
         self.le = lambda_e
         
-    def build_graph(self):
+    def build_graph(self) -> 'List[tf.placeholder]':
         with tf.variable_scope('cbpr', reuse=tf.AUTO_REUSE):
             u  = tf.placeholder(tf.int32,   [None])
             i  = tf.placeholder(tf.int32,   [None])
@@ -60,7 +60,7 @@ class VBPR(BPR):
         self.solver = tf.train.RMSPropOptimizer(self.lr).minimize(self.obj)
         return u, i, j, ic, jc
 
-    def train(self, sampling: str = 'user uniform', epochs: int = 5, batch_size: int = 256):
+    def train(self, sampling: str = 'user uniform', epochs: int = 5, batch_size: int = 256) -> None:
         with tf.Graph().as_default():
             u, i, j, ic, jc = self.build_graph()
             batch_limit = self.epoch_sample_limit//batch_size + 1

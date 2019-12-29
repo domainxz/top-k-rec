@@ -21,7 +21,7 @@ class REC(ABC):
     def load_training_data(self):
         pass
 
-    def load_content_data(self, content_file: str, iid_file: str):
+    def load_content_data(self, content_file: str, iid_file: str) -> None:
         tprint('Load content data from %s' % (content_file))
         fiids = get_id_dict_from_file(iid_file)
         self.feat = np.zeros((self.n_items, self.d), dtype=np.float32)
@@ -41,7 +41,7 @@ class REC(ABC):
     def train(self):
         pass
 
-    def export_embeddings(self, model_path: str):
+    def export_embeddings(self, model_path: str) -> None:
         if os.path.exists(os.path.exists(model_path)):
             tprint('Saving model to path %s' % (model_path))
             if hasattr(self, 'fue'):
@@ -51,7 +51,7 @@ class REC(ABC):
             if hasattr(self, 'fib'):
                 export_embed_to_file(os.path.join(model_path, 'final-B.dat'), self.fib)
 
-    def import_embeddings(self, model_path: str):
+    def import_embeddings(self, model_path: str) -> None:
         file_path = os.path.join(model_path, 'final-U.dat')
         if os.path.exists(file_path):
             self.fue = get_embed_from_file(file_path, self.uids)

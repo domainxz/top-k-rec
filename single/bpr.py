@@ -16,7 +16,7 @@ from utils import tprint, get_id_dict_from_file, get_data_from_file
 
 
 class BPR(REC):
-    def __init__(self, k: int, lambda_u: float = 2.5e-3, lambda_i: float = 2.5e-3, lambda_j: float = 2.5e-4, lambda_b: float = 0, lr: float = 1.0e-4, mode: str = 'l2'):
+    def __init__(self, k: int, lambda_u: float = 2.5e-3, lambda_i: float = 2.5e-3, lambda_j: float = 2.5e-4, lambda_b: float = 0, lr: float = 1.0e-4, mode: str = 'l2') -> None:
         self.k    = k
         self.lu   = lambda_u
         self.li   = lambda_i
@@ -27,7 +27,7 @@ class BPR(REC):
         self.tf_config.gpu_options.allow_growth = True
         self.mode = mode
 
-    def load_training_data(self, training_file: str, uid_file: str, iid_file: str, data_copy: bool = False):
+    def load_training_data(self, training_file: str, uid_file: str, iid_file: str, data_copy: bool = False) -> None:
         tprint('Load training data from %s' % (training_file))
         self.uids = get_id_dict_from_file(uid_file)
         self.iids = get_id_dict_from_file(iid_file)
@@ -41,7 +41,7 @@ class BPR(REC):
             del self.data
         tprint('Loading finished!')
 
-    def build_graph(self):
+    def build_graph(self) -> 'List[tf.placeholder[tf.int32]]':
         with tf.variable_scope('bpr', reuse=tf.AUTO_REUSE):
             u = tf.placeholder(tf.int32, [None])
             i = tf.placeholder(tf.int32, [None])
@@ -114,7 +114,7 @@ class BPR(REC):
             self.fie = sess.run(self.__ie)
             self.fib = sess.run(tf.reshape(self.__ib, (-1, 1)))
     
-    def _uniform_user_sampling(self, batch_size: int):
+    def _uniform_user_sampling(self, batch_size: int) -> 'List[np.ndarray[np.int32]]':
         ib = np.zeros(batch_size, dtype=np.int32)
         jb = np.zeros(batch_size, dtype=np.int32)
         while True:
@@ -126,7 +126,7 @@ class BPR(REC):
                     jb[i] = np.random.choice(self.n_items)
             yield ub, ib, jb
     
-    def _data_to_training_dict(self, data: list, users: dict, items: dict):
+    def _data_to_training_dict(self, data: list, users: dict, items: dict) -> 'Defaultdict[list]':
         data_dict = defaultdict(list)
         for (user, item) in data:
             data_dict[users[user]].append(items[item])

@@ -9,7 +9,7 @@ from utils import get_id_dict_from_file,  tprint
 
 
 class WMF(REC):
-    def __init__(self, k: int, lu: float = 0.01, lv: float = 0.01, a: float = 1, b: float = 0.01):
+    def __init__(self, k: int, lu: float = 0.01, lv: float = 0.01, a: float = 1, b: float = 0.01) -> None:
         self.__sn = 'wmf'
         self.k = k
         self.lu = lu
@@ -19,7 +19,7 @@ class WMF(REC):
         self.tf_config = tf.ConfigProto()
         self.tf_config.gpu_options.allow_growth=True
 
-    def load_training_data(self, upath: str, ipath: str, trpath: str):
+    def load_training_data(self, upath: str, ipath: str, trpath: str) -> None:
         self.uids = get_id_dict_from_file(upath)
         self.n_users = len(self.uids)
         self.usm = dict()
@@ -45,10 +45,10 @@ class WMF(REC):
         self.fue = np.random.rand(self.n_users, self.k).astype(np.float32)
         self.fie = np.random.rand(self.n_items, self.k).astype(np.float32)
 
-    def build_graph(self):
+    def build_graph(self) -> None:
         tprint('%s does not require build_graph method!' % self.__sn)
 
-    def train(self, max_iter: int = 200, tol: float = 1e-4):
+    def train(self, max_iter: int = 200, tol: float = 1e-4) -> None:
         loss = np.exp(50)
         Ik   = np.eye(self.k, dtype=np.float32)
         for it in range(max_iter):
