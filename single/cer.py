@@ -1,71 +1,75 @@
+"""
+    Collaborative Embedding Regression (CER)
+    Sampling Method : uniform item sampling per user
+    Author          : Xingzhong Du
+    E-mail          : dxz.nju@gmail.com
+    Reference       : "Personalized Video Recommendation Using Rich Contents from Videos", Xingzhong Du, et al.
+"""
+
 import numpy as np
 import os
-import pickle
-import scipy.sparse as ss
-import tensorflow as tf
 import time
 from .wmf import WMF
-from utils import get_id_dict_from_file, export_embed_to_file
+from utils import tprint, get_embed_from_file, export_embed_to_file
+
 
 class CER(WMF):
-    def __init__(self, k, d, lu=0.01, lv=10, le=10e3, a=1, b=0.01):
-        self.__sn = 'cer';
-        WMF.__init__(self, k, lu, lv, a, b);
-        self.d  = d;
-        self.le = le;
+    def __init__(self, k: int, d: int, lu: float = 0.01, lv: float = 10, le: float = 10e3, a: float = 1, b: float = 0.01) -> None:
+        self.__sn = 'cer'
+        WMF.__init__(self, k, lu, lv, a, b)
+        self.d = d
+        self.le = le
 
-    def load_content_data(self, content_file, iid_file):
-        print ('Load content data from %s'%(content_file));
-        fiids  = get_id_dict_from_file(iid_file);
-        self.F = np.zeros((self.n_items, self.d), dtype=np.float32);
-        F      = pickle.load(open(content_file, 'rb'), encoding='latin1');
-        if ss.issparse(F):
-            F = F.toarray();
-        for iid in self.iids:
-            if iid in fiids:
-                self.F[self.iids[iid],:]=F[fiids[iid],:];
-        print('Loading finished!');
-
-    def train(self, model_path, max_iter=200):
-        loss  = np.exp(50);
-        Ik    = np.eye(self.k, dtype=np.float32);
-        FF    = self.lv * np.dot(self.F.T, self.F) + self.le * np.eye(self.F.shape[1]);
-        self.E= np.random.randn(self.F.shape[1], self.k).astype(np.float32);
+    def train(self, max_iter: int = 200) -> None:
+        loss = np.exp(50)
+        Ik = np.eye(self.k, dtype=np.float32)
+        FF = self.lv * np.dot(self.feat.T, self.feat) + self.le * np.eye(self.feat.shape[1])
+        if not hasattr(self, 'E'):
+            self.E = np.random.randn(self.feat.shape[1], self.k).astype(np.float32)
         for it in range(max_iter):
-            t1     = time.time();
-            self.V = np.dot(self.F, self.E);
-            loss_old = loss;
-            loss     = 0;
-            Vr = self.V[np.array(self.i_rated), :];
-            XX = np.dot(Vr.T, Vr)*self.b + Ik*self.lu;
+            t1 = time.time()
+            self.fie = np.dot(self.feat, self.E)
+            loss_old = loss
+            loss = 0
+            Vr = self.fie[np.array(self.i_rated), :]
+            XX = np.dot(Vr.T, Vr) * self.b + Ik * self.lu
             for i in self.usm:
                 if len(self.usm[i]) > 0:
-                    Vi = self.V[np.array(self.usm[i]), :];
-                    self.U[i,:] = np.linalg.solve(np.dot(Vi.T, Vi)*(self.a-self.b)+XX, np.sum(Vi, axis=0)*self.a);
-                    loss += 0.5 * self.lu * np.sum(self.U[i,:]**2);
-            Ur = self.U[np.array(self.u_rated), :];
-            XX = np.dot(Ur.T, Ur)*self.b
+                    Vi = self.fie[np.array(self.usm[i]), :]
+                    self.fue[i, :] = np.linalg.solve(np.dot(Vi.T, Vi) * (self.a - self.b) + XX,
+                                                     np.sum(Vi, axis=0) * self.a)
+                    loss += 0.5 * self.lu * np.sum(self.fue[i, :] ** 2)
+            Ur = self.fue[np.array(self.u_rated), :]
+            XX = np.dot(Ur.T, Ur) * self.b
             for j in self.ism:
-                B  = XX;
-                Fe = self.V[j,:].copy();
+                B = XX
+                Fe = self.fie[j, :].copy()
                 if len(self.ism[j]) > 0:
-                    Uj = self.U[np.array(self.ism[j]), :];
-                    B += np.dot(Uj.T, Uj)*(self.a-self.b); 
-                    self.V[j,:] = np.linalg.solve(B+Ik*self.lv, np.sum(Uj, axis=0)*self.a + Fe*self.lv);
-                    loss += 0.5 * np.linalg.multi_dot((self.V[j,:], B, self.V[j,:]));
-                    loss += 0.5 * len(self.ism[j])*self.a;
-                    loss -= np.sum(np.multiply(Uj, self.V[j,:]))*self.a;
+                    Uj = self.fue[np.array(self.ism[j]), :]
+                    B += np.dot(Uj.T, Uj) * (self.a - self.b)
+                    self.fie[j, :] = np.linalg.solve(B + Ik * self.lv, np.sum(Uj, axis=0) * self.a + Fe * self.lv)
+                    loss += 0.5 * np.linalg.multi_dot((self.fie[j, :], B, self.fie[j, :]))
+                    loss += 0.5 * len(self.ism[j]) * self.a
+                    loss -= np.sum(np.multiply(Uj, self.fie[j, :])) * self.a
                 else:
-                    self.V[j,:] = np.linalg.solve(B+Ik*self.lv, Fe*self.lv);
-                loss += 0.5 * self.lv * np.sum((self.V[j,:] - Fe)**2);
-            self.E = np.linalg.solve(FF, self.lv * np.dot(self.F.T, self.V));
-            loss  += 0.5 * self.le * np.sum(self.E ** 2);
-            print ('Iter %3d, loss %.6f, time %.2fs'%(it, loss, time.time()-t1));
-        if os.path.exists(os.path.dirname(model_path)):
-            print ('Saving model to path %s'%(model_path))
-            Fe = np.dot(self.F, self.E);
-            for iidx in self.ism:
-                if iidx not in self.i_rated:
-                    self.V[iidx, :] = Fe[iidx, :];
-            export_embed_to_file(os.path.join(model_path, 'final-U.dat'), self.U);
-            export_embed_to_file(os.path.join(model_path, 'final-V.dat'), self.V);
+                    self.fie[j, :] = np.linalg.solve(B + Ik * self.lv, Fe * self.lv)
+                loss += 0.5 * self.lv * np.sum((self.fie[j, :] - Fe) ** 2)
+            self.E = np.linalg.solve(FF, self.lv * np.dot(self.feat.T, self.fie))
+            loss += 0.5 * self.le * np.sum(self.E ** 2)
+            tprint('Iter %3d, loss %.6f, time %.2fs' % (it, loss, time.time() - t1))
+        Fe = np.dot(self.feat, self.E)
+        for iidx in self.ism:
+            if iidx not in self.i_rated:
+                self.fie[iidx, :] = Fe[iidx, :]
+
+    def import_embeddings(self, model_path: str) -> None:
+        super().import_embeddings(model_path)
+        file_path = os.path.join(model_path, 'final-E.dat')
+        if os.path.exists(file_path):
+            self.E = get_embed_from_file(file_path)
+
+    def export_embeddings(self, model_path: str) -> None:
+        super().export_embeddings(model_path)
+        if os.path.exists(os.path.exists(model_path)):
+            if hasattr(self, 'E'):
+                export_embed_to_file(os.path.join(model_path, 'final-E.dat'), self.E)
