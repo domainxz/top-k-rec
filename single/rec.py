@@ -31,6 +31,7 @@ class REC(ABC):
         for iid in self.iids:
             if iid in fiids:
                 self.feat[self.iids[iid], :] = feat[fiids[iid], :]
+        tprint('Loading finished!')
 
     @abstractmethod
     def build_graph(self):
