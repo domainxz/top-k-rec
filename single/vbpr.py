@@ -12,8 +12,9 @@ import tensorflow.compat.v1 as tf
 import time
 from utils import tprint
 
+
 class VBPR(BPR):
-    def __init__(self, k, d, lambda_u=2.5e-3, lambda_i=2.5e-3, lambda_j=2.5e-4, lambda_b=0, lambda_e=0, lr=1.0e-4, mode='l2'):
+    def __init__(self, k: int, d: int, lambda_u: float = 2.5e-3, lambda_i: float = 2.5e-3, lambda_j: float = 2.5e-4, lambda_b: float = 0, lambda_e: float = 0, lr: float = 1.0e-4, mode: str = 'l2'):
         BPR.__init__(self, k, lambda_u, lambda_i, lambda_j, lambda_b, lr, mode)
         self.d = d
         self.le = lambda_e
@@ -59,7 +60,7 @@ class VBPR(BPR):
         self.solver = tf.train.RMSPropOptimizer(self.lr).minimize(self.obj)
         return u, i, j, ic, jc
 
-    def train(self, sampling = 'user uniform', epochs = 5, batch_size = 256):
+    def train(self, sampling: str = 'user uniform', epochs: int = 5, batch_size: int = 256):
         with tf.Graph().as_default():
             u, i, j, ic, jc = self.build_graph()
             batch_limit = self.epoch_sample_limit//batch_size + 1

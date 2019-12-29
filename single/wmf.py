@@ -7,8 +7,9 @@ import tensorflow.compat.v1 as tf
 import time
 from utils import get_id_dict_from_file,  tprint
 
+
 class WMF(REC):
-    def __init__(self, k, lu=0.01, lv=0.01, a=1, b=0.01):
+    def __init__(self, k: int, lu: float = 0.01, lv: float = 0.01, a: float = 1, b: float = 0.01):
         self.__sn = 'wmf'
         self.k = k
         self.lu = lu
@@ -18,7 +19,7 @@ class WMF(REC):
         self.tf_config = tf.ConfigProto()
         self.tf_config.gpu_options.allow_growth=True
 
-    def load_training_data(self, upath, ipath, trpath):
+    def load_training_data(self, upath: str, ipath: str, trpath: str):
         self.uids = get_id_dict_from_file(upath)
         self.n_users = len(self.uids)
         self.usm = dict()
@@ -47,7 +48,7 @@ class WMF(REC):
     def build_graph(self):
         tprint('%s does not require build_graph method!' % self.__sn)
 
-    def train(self, max_iter=200, tol=1e-4):
+    def train(self, max_iter: int = 200, tol: float = 1e-4):
         loss = np.exp(50)
         Ik   = np.eye(self.k, dtype=np.float32)
         for it in range(max_iter):

@@ -13,13 +13,13 @@ from utils import tprint
 
 
 class CER(WMF):
-    def __init__(self, k, d, lu=0.01, lv=10, le=10e3, a=1, b=0.01):
+    def __init__(self, k: int, d: int, lu: float = 0.01, lv: float = 10, le: float = 10e3, a: float = 1, b: float = 0.01):
         self.__sn = 'cer'
         WMF.__init__(self, k, lu, lv, a, b)
         self.d = d
         self.le = le
 
-    def train(self, max_iter=200):
+    def train(self, max_iter: int = 200):
         loss = np.exp(50)
         Ik = np.eye(self.k, dtype=np.float32)
         FF = self.lv * np.dot(self.feat.T, self.feat) + self.le * np.eye(self.feat.shape[1])

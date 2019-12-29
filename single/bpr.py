@@ -9,14 +9,14 @@
 from collections import defaultdict
 from .rec import REC
 import numpy as np
-import os
 import sys
 import tensorflow.compat.v1 as tf
 import time
 from utils import tprint, get_id_dict_from_file, get_data_from_file
 
+
 class BPR(REC):
-    def __init__(self, k, lambda_u=2.5e-3, lambda_i=2.5e-3, lambda_j=2.5e-4, lambda_b=0, lr=1.0e-4, mode='l2'):
+    def __init__(self, k: int, lambda_u: float = 2.5e-3, lambda_i: float = 2.5e-3, lambda_j: float = 2.5e-4, lambda_b: float = 0, lr: float = 1.0e-4, mode: str = 'l2'):
         self.k    = k
         self.lu   = lambda_u
         self.li   = lambda_i
@@ -27,7 +27,7 @@ class BPR(REC):
         self.tf_config.gpu_options.allow_growth = True
         self.mode = mode
 
-    def load_training_data(self, training_file, uid_file, iid_file, data_copy = False):
+    def load_training_data(self, training_file: str, uid_file: str, iid_file: str, data_copy: bool = False):
         tprint('Load training data from %s' % (training_file))
         self.uids = get_id_dict_from_file(uid_file)
         self.iids = get_id_dict_from_file(iid_file)
@@ -73,7 +73,7 @@ class BPR(REC):
         self.solver = tf.train.RMSPropOptimizer(self.lr).minimize(self.obj)
         return u, i, j
 
-    def train(self, sampling = 'user uniform', epochs = 5, batch_size = 256):
+    def train(self, sampling: str = 'user uniform', epochs: int = 5, batch_size: int = 256):
         with tf.Graph().as_default():
             u, i, j = self.build_graph()
             batch_limit = self.epoch_sample_limit//batch_size + 1
@@ -114,7 +114,7 @@ class BPR(REC):
             self.fie = sess.run(self.__ie)
             self.fib = sess.run(tf.reshape(self.__ib, (-1, 1)))
     
-    def _uniform_user_sampling(self, batch_size): 
+    def _uniform_user_sampling(self, batch_size: int):
         ib = np.zeros(batch_size, dtype=np.int32)
         jb = np.zeros(batch_size, dtype=np.int32)
         while True:
@@ -126,7 +126,7 @@ class BPR(REC):
                     jb[i] = np.random.choice(self.n_items)
             yield ub, ib, jb
     
-    def _data_to_training_dict(self, data, users, items):
+    def _data_to_training_dict(self, data: list, users: dict, items: dict):
         data_dict = defaultdict(list)
         for (user, item) in data:
             data_dict[users[user]].append(items[item])

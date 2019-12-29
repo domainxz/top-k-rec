@@ -2,10 +2,12 @@ from datetime import datetime
 import numpy as np
 import os
 
-def tprint(msg):
+
+def tprint(msg: str):
     print('%s: %s'%(datetime.now().strftime('%Y-%m-%d %H:%M:%S'), msg))
 
-def get_id_dict_from_file(file_path):
+
+def get_id_dict_from_file(file_path: str):
     ids = dict()
     if os.path.exists(file_path) and os.path.isfile(file_path):
         for line in open(file_path, 'r'):
@@ -13,7 +15,8 @@ def get_id_dict_from_file(file_path):
             ids[tid] = len(ids)
     return ids
 
-def get_iv_dict_from_file(file_path):
+
+def get_iv_dict_from_file(file_path: str):
     ivt = dict()
     if os.path.exists(file_path) and os.path.isfile(file_path):
         for line in open(file_path):
@@ -21,7 +24,8 @@ def get_iv_dict_from_file(file_path):
             ivt[len(ivt)] = tid
     return ivt
 
-def get_embed_from_file(file_path, ids):
+
+def get_embed_from_file(file_path: str, ids: dict):
     embed = None
     if os.path.exists(file_path) and os.path.isfile(file_path):
         lines = open(file_path).readlines()
@@ -33,7 +37,8 @@ def get_embed_from_file(file_path, ids):
                 embed[ids[tid], k] = np.float32(terms[k])
     return embed
 
-def export_embed_to_file(file_path, embed):
+
+def export_embed_to_file(file_path: str, embed: 'np.ndarray[np.float32]'):
     if not os.path.isdir(os.path.dirname(file_path)):
         os.mkdir(os.path.dirname(file_path))
     row, col = embed.shape
@@ -43,7 +48,8 @@ def export_embed_to_file(file_path, embed):
                 f.write('%f '%embed[i, j])
             f.write('\n')
 
-def get_data_from_file(file_path, uids, iids):
+
+def get_data_from_file(file_path: str, uids: dict, iids: dict):
     data = list()
     if os.path.exists(file_path) and os.path.isfile(file_path):
         for line in open(file_path, 'r'):
@@ -57,7 +63,8 @@ def get_data_from_file(file_path, uids, iids):
                         data.append((uid, iid))
     return data
 
-def get_history_from_file(file_path):
+
+def get_history_from_file(file_path: str):
     browsed = dict()
     counter = dict()
     if os.path.exists(file_path) and os.path.isfile(file_path):
@@ -75,7 +82,8 @@ def get_history_from_file(file_path):
                     counter[iid] += 1
     return browsed, counter
 
-def get_score(U, V, iids, sub_iids):
+
+def get_score(U: 'np.ndarray[np.float32]', V: 'np.ndarray[np.float32]', iids: dict, sub_iids: dict):
     subV = np.zeros((len(sub_iids), V.shape[1]), dtype=np.float32)
     for iid in iids:
         if iid in sub_iids:
@@ -83,7 +91,8 @@ def get_score(U, V, iids, sub_iids):
     score = np.dot(U, subV.T)
     return score
 
-def evaluate(score, rated, likes, uids, te_iids, te_ivt, step, total, interval):
+
+def evaluate(score: 'np.ndarray[np.float32]', rated: dict, likes: dict, uids: dict, te_iids: dict, te_ivt: dict, step: int, total: int, interval: int):
     count = 0
     hits  = [0.0] * interval
     trrs  = [0.0] * interval
