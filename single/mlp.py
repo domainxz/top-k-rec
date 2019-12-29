@@ -1,7 +1,8 @@
+from .encoder import ENCODER
 import numpy as np
 import tensorflow.compat.v1 as tf
 
-class MLP:
+class MLP(ENCODER):
     def __init__(self, k, d, lr = 1e-4, lbd = 1e-4, hidden_layers = [2000, 1000]):
         self._k = k
         self._d = d
@@ -18,7 +19,7 @@ class MLP:
             self.obj = 0.5 * tf.reduce_sum((self.y - self.F) ** 2)
             self.solver = tf.train.RMSPropOptimizer(self._lr).minimize(self.obj)
 
-    def forward(self, sess, X, batch_size = 64):
+    def out(self, sess, X, batch_size = 64):
         n_row, n_col = X.shape
         F = np.zeros((n_col, self._k), dtype=np.float32)
         for i in range(0, n_row, batch_size):
@@ -26,7 +27,7 @@ class MLP:
             F[i: i+actual_batch_size, :] = sess.run(self.F, feed_dict={self.x: X[i: i+actual_batch_size]})
         return F
 
-    def backward(self, sess, X, Y, batch_size = 64):
+    def fit(self, sess, X, Y, batch_size = 64):
         n_row, n_col = X.shape
         ridxs = np.random.permutation(n_row)
         obj = 0
