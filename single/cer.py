@@ -24,7 +24,8 @@ class CER(WMF):
         loss = np.exp(50)
         Ik = np.eye(self.k, dtype=np.float32)
         FF = self.lv * np.dot(self.feat.T, self.feat) + self.le * np.eye(self.feat.shape[1])
-        self.E = np.random.randn(self.feat.shape[1], self.k).astype(np.float32)
+        if not hasattr(self, 'E'):
+            self.E = np.random.randn(self.feat.shape[1], self.k).astype(np.float32)
         for it in range(max_iter):
             t1 = time.time()
             self.fie = np.dot(self.feat, self.E)
@@ -62,13 +63,13 @@ class CER(WMF):
                 self.fie[iidx, :] = Fe[iidx, :]
 
     def import_embeddings(self, model_path: str) -> None:
-        super.import_embeddings(model_path)
+        super().import_embeddings(model_path)
         file_path = os.path.join(model_path, 'final-E.dat')
         if os.path.exists(file_path):
             self.E = get_embed_from_file(file_path)
 
     def export_embeddings(self, model_path: str) -> None:
-        super.export_embeddings(model_path)
+        super().export_embeddings(model_path)
         if os.path.exists(os.path.exists(model_path)):
             if hasattr(self, 'E'):
                 export_embed_to_file(os.path.join(model_path, 'final-E.dat'), self.E)

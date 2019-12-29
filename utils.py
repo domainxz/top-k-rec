@@ -51,7 +51,7 @@ def export_embed_to_file(file_path: str, embed: 'np.ndarray[np.float32]') -> Non
     with open(file_path, 'w') as f:
         for i in range(row):
             for j in range(col):
-                f.write('%f '%embed[i, j])
+                f.write('%f ' % embed[i, j])
             f.write('\n')
 
 
