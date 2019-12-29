@@ -1,7 +1,7 @@
 from abc import ABC, abstractmethod
 import numpy as np
 import os
-import tensorflow as tf
+import tensorflow.compat.v1 as tf
 import time
 from utils import get_id_dict_from_file, export_embed_to_file
 
