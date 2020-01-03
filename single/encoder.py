@@ -5,13 +5,12 @@
 """
 
 from abc import ABC, abstractmethod
+import tensorflow.compat.v1 as tf
+
+tf.disable_eager_execution()
 
 
 class ENCODER(ABC):
-    @abstractmethod
-    def __init__(self):
-        pass
-
     @abstractmethod
     def out(self):
         pass
