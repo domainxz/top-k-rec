@@ -1,5 +1,6 @@
 from .encoder import ENCODER
 import numpy as np
+import os
 import tensorflow.compat.v1 as tf
 import time
 from utils import tprint
@@ -12,18 +13,24 @@ class DPM(WMF):
         WMF.__init__(self, k, lu, lv, a, b)
         self.d = d
         self.le = le
+        self.encoder = None
+        self.__sess = None
+        self.__saver = None
 
-    def train(self, encoder: ENCODER, max_iter: int = 200) -> None:
+    def train(self, encoder: ENCODER, max_iter: int = 200, model_path: str = None) -> None:
         loss = np.exp(50)
         Ik = np.eye(self.k, dtype=np.float32)
         with tf.Graph().as_default():
             self.encoder = encoder(self.k, self.d)
-            sess = tf.Session(config=self.tf_config)
-            sess.run(tf.global_variables_initializer())
-            with sess.as_default():
+            self.__saver = tf.train.Saver()
+            self.__sess = tf.Session(config=self.tf_config)
+            self.__sess.run(tf.global_variables_initializer())
+            if model_path is not None:
+                self.import_embeddings(model_path)
+            with self.__sess.as_default():
                 for it in range(max_iter):
                     t1 = time.time()
-                    self.fie = self.encoder.out(sess, self.feat)
+                    self.fie = self.encoder.out(self.__sess, self.feat)
                     loss_old = loss
                     loss = 0
                     Vr = self.fie[np.array(self.i_rated), :]
@@ -49,9 +56,21 @@ class DPM(WMF):
                         else:
                             self.fie[j, :] = np.linalg.solve(B + Ik * self.lv, Fe * self.lv)
                         loss += 0.5 * self.lv * np.sum((self.fie[j, :] - Fe) ** 2)
-                    loss += self.encoder.fit(sess, self.feat, self.fie)
+                    loss += self.encoder.fit(self.__sess, self.feat, self.fie)
                     tprint('Iter %3d, loss %.6f, time %.2fs' % (it, loss, time.time() - t1))
-        Fe = self.encoder.out(sess, self.feat)
+        Fe = self.encoder.out(self.__sess, self.feat)
         for iidx in self.ism:
             if iidx not in self.i_rated:
                 self.fie[iidx, :] = Fe[iidx, :]
+
+    def import_model(self, model_path: str) -> None:
+        file_path = os.path.join(model_path, 'weights')
+        if os.path.exists(model_path) and self.__sess is not None and self.__saver is not None:
+            tprint('Restoring tensorflow graph from path %s' % (file_path))
+            self.__saver.restore(self.__sess, file_path)
+
+    def export_model(self, model_path: str) -> None:
+        if os.path.exists(model_path) and self.__sess is not None and self.__saver is not None:
+            file_path = os.path.join(model_path, 'weights')
+            tprint('Saving tensorflow graph to path %s' % (file_path))
+            self.__saver.save(self.__sess, file_path)
