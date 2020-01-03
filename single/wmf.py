@@ -29,19 +29,19 @@ class WMF(REC):
         self.fue = None
         self.fie = None
 
-    def load_training_data(self, upath: str, ipath: str, trpath: str) -> None:
-        self.uids = get_id_dict_from_file(upath)
+    def load_training_data(self, uid_file: str, iid_file: str, tr_file: str) -> None:
+        self.uids = get_id_dict_from_file(uid_file)
         self.n_users = len(self.uids)
         self.usm = dict()
         for uid in self.uids.values():
             self.usm[uid] = list()
-        self.iids = get_id_dict_from_file(ipath)
+        self.iids = get_id_dict_from_file(iid_file)
         self.n_items = len(self.iids)
         self.n_ratings = self.n_users * self.n_items
         self.ism = dict()
         for iid in self.iids.values():
             self.ism[iid] = list()
-        for line in open(trpath, 'r'):
+        for line in open(tr_file, 'r'):
             terms = line.strip().split(',')
             uid   = terms[0]
             for j in range(1, len(terms)):
