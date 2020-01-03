@@ -93,3 +93,5 @@ embed/*/*.dat
 .idea/
 # Test scripts
 test*.py
+embed/
+.DS_Store/

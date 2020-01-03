@@ -4,7 +4,7 @@ import os
 
 
 def tprint(msg: str) -> None:
-    print('%s: %s'%(datetime.now().strftime('%Y-%m-%d %H:%M:%S'), msg))
+    print('%s: %s'%(datetime.now().strftime('%Y-%m-%d %H:%M:%S.%f'), msg))
 
 
 def get_id_dict_from_file(file_path: str) -> 'Dict[int, int]':
