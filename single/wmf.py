@@ -1,8 +1,7 @@
 from abc import ABC, abstractmethod
 import numpy as np
-import pickle
 from .rec import REC
-import scipy.sparse as ss
+import os
 import tensorflow.compat.v1 as tf
 import time
 from utils import get_id_dict_from_file,  tprint
@@ -18,6 +17,17 @@ class WMF(REC):
         self.b  = b
         self.tf_config = tf.ConfigProto()
         self.tf_config.gpu_options.allow_growth=True
+        self.uids = None
+        self.n_users = None
+        self.usm = None
+        self.iids = None
+        self.n_items = None
+        self.ism = None
+        self.n_ratings = None
+        self.u_rated = None
+        self.i_rated = None
+        self.fue = None
+        self.fie = None
 
     def load_training_data(self, upath: str, ipath: str, trpath: str) -> None:
         self.uids = get_id_dict_from_file(upath)
@@ -48,9 +58,11 @@ class WMF(REC):
     def build_graph(self) -> None:
         tprint('%s does not require build_graph method!' % self.__sn)
 
-    def train(self, max_iter: int = 200, tol: float = 1e-4) -> None:
+    def train(self, max_iter: int = 200, tol: float = 1e-4, model_path: str = None) -> None:
         loss = np.exp(50)
         Ik   = np.eye(self.k, dtype=np.float32)
+        if model_path is not None and os.path.isdir(model_path):
+            self.import_embeddings(model_path)
         for it in range(max_iter):
             t1 = time.time()
             loss_old = loss
@@ -77,3 +89,9 @@ class WMF(REC):
             tprint('Iter %3d, loss %.6f, converge %.6f, time %.2fs'%(it, loss, cond, time.time()-t1))
             if cond < tol:
                 break
+
+    def export_model(self, model_path: str) -> None:
+        return
+
+    def import_model(self, model_path: str) -> None:
+        return
