@@ -15,16 +15,19 @@ from utils import tprint, get_embed_from_file, export_embed_to_file
 
 class CER(WMF):
     def __init__(self, k: int, d: int, lu: float = 0.01, lv: float = 10, le: float = 10e3, a: float = 1, b: float = 0.01) -> None:
+        super().__init__(k, lu, lv, a, b)
         self.__sn = 'cer'
-        WMF.__init__(self, k, lu, lv, a, b)
         self.d = d
         self.le = le
+        self.E = None
 
-    def train(self, max_iter: int = 200) -> None:
+    def train(self, max_iter: int = 200, model_path: str = None) -> None:
         loss = np.exp(50)
         Ik = np.eye(self.k, dtype=np.float32)
         FF = self.lv * np.dot(self.feat.T, self.feat) + self.le * np.eye(self.feat.shape[1])
-        if not hasattr(self, 'E'):
+        if model_path is not None and os.path.isdir(model_path):
+            self.import_embeddings(model_path)
+        if self.E is None:
             self.E = np.random.randn(self.feat.shape[1], self.k).astype(np.float32)
         for it in range(max_iter):
             t1 = time.time()
@@ -62,14 +65,14 @@ class CER(WMF):
             if iidx not in self.i_rated:
                 self.fie[iidx, :] = Fe[iidx, :]
 
-    def import_embeddings(self, model_path: str) -> None:
-        super().import_embeddings(model_path)
+    def import_model(self, model_path: str) -> None:
         file_path = os.path.join(model_path, 'final-E.dat')
         if os.path.exists(file_path):
+            tprint('Loading content projection matrix from %s' % file_path)
             self.E = get_embed_from_file(file_path)
 
-    def export_embeddings(self, model_path: str) -> None:
-        super().export_embeddings(model_path)
-        if os.path.exists(os.path.exists(model_path)):
+    def export_model(self, model_path: str) -> None:
+        if os.path.exists(model_path):
             if hasattr(self, 'E'):
+                tprint('Saving item biases to %s' % os.path.join(model_path, 'final-E.dat'))
                 export_embed_to_file(os.path.join(model_path, 'final-E.dat'), self.E)
