@@ -127,7 +127,7 @@ class VBPR(BPR):
 
     def import_model(self, model_path: str) -> None:
         file_path = os.path.join(model_path, 'weights')
-        if os.path.exists(file_path) and self.__sess is not None and self.__saver is not None:
+        if os.path.exists(model_path) and self.__sess is not None and self.__saver is not None:
             tprint('Restoring tensorflow graph from path %s' % (file_path))
             self.__saver.restore(self.__sess, file_path)
 

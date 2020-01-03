@@ -48,11 +48,11 @@ class BPR(REC):
         self.fib = None
 
 
-    def load_training_data(self, training_file: str, uid_file: str, iid_file: str, data_copy: bool = False) -> None:
-        tprint('Load training data from %s' % (training_file))
+    def load_training_data(self, uid_file: str, iid_file: str, tr_file: str, data_copy: bool = False) -> None:
+        tprint('Load training data from %s' % (tr_file))
         self.uids = get_id_dict_from_file(uid_file)
         self.iids = get_id_dict_from_file(iid_file)
-        self.data = get_data_from_file(training_file, self.uids, self.iids)
+        self.data = get_data_from_file(tr_file, self.uids, self.iids)
         self.epoch_sample_limit = len(self.data)
         assert isinstance(self.uids, dict)
         assert isinstance(self.iids, dict)
@@ -172,7 +172,7 @@ class BPR(REC):
 
     def import_model(self, model_path: str) -> None:
         file_path = os.path.join(model_path, 'weights')
-        if os.path.exists(file_path) and self.__sess is not None and self.__saver is not None:
+        if os.path.exists(model_path) and self.__sess is not None and self.__saver is not None:
             tprint('Restoring tensorflow graph from path %s' % (file_path))
             self.__saver.restore(self.__sess, file_path)
 
