@@ -18,3 +18,7 @@ class ENCODER(ABC):
     @abstractmethod
     def fit(self):
         pass
+
+    @abstractmethod
+    def pertrain(self):
+        pass
