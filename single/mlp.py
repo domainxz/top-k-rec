@@ -39,5 +39,5 @@ class MLP(ENCODER):
             obj += batch_obj
         return obj
 
-    def pretrain(self):
+    def pretrain(self, X, Y):
         tprint('MLP encoder does not implement pretrain method')

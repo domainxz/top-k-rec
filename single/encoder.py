@@ -20,5 +20,5 @@ class ENCODER(ABC):
         pass
 
     @abstractmethod
-    def pertrain(self):
+    def pertrain(self, X, Y):
         pass
