@@ -94,4 +94,5 @@ embed/*/*.dat
 # Test scripts
 test*.py
 embed/
-.DS_Store/
+.DS_Store
+

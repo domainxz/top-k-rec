@@ -73,7 +73,7 @@ class WMF(REC):
                 if len(self.usm[i]) > 0:
                     Vi = self.fie[np.array(self.usm[i]), :]
                     self.fue[i, :] = np.linalg.solve(np.dot(Vi.T, Vi)*(self.a-self.b)+XX, np.sum(Vi, axis=0)*self.a)
-                    loss += 0.5 * self.lu * np.sum(self.fue[i,:]**2)
+                loss += 0.5 * self.lu * np.sum(self.fue[i,:]**2)
             Ur = self.fue[np.array(self.u_rated), :]
             XX = np.dot(Ur.T, Ur)*self.b
             for j in self.ism:
@@ -84,7 +84,7 @@ class WMF(REC):
                     loss += 0.5 * len(self.ism[j])*self.a
                     loss += 0.5 * np.linalg.multi_dot((self.fie[j, :], B, self.fie[j, :]))
                     loss -= np.sum(np.multiply(Uj, self.fie[j, :]))*self.a
-                    loss += 0.5 * self.lv * np.sum(self.fie[j, :]**2)
+                loss += 0.5 * self.lv * np.sum(self.fie[j, :]**2)
             cond = np.abs(loss_old - loss) / loss_old
             tprint('Iter %3d, loss %.6f, converge %.6f, time %.2fs'%(it, loss, cond, time.time()-t1))
             if cond < tol:
