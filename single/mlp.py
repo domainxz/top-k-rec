@@ -1,6 +1,7 @@
 from .encoder import ENCODER
 import numpy as np
 import tensorflow.compat.v1 as tf
+from utils import tprint
 
 
 class MLP(ENCODER):
@@ -37,3 +38,6 @@ class MLP(ENCODER):
             batch_obj, _ = sess.run([self.obj, self.solver], feed_dict={self.x: X[ridxs[i: i+actual_batch_size]], self.y: Y[ridxs[i: i+actual_batch_size]]})
             obj += batch_obj
         return obj
+
+    def pretrain(self, X, Y):
+        tprint('MLP encoder does not implement pretrain method')
