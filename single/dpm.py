@@ -40,11 +40,11 @@ class DPM(WMF):
                             Vi = self.fie[np.array(self.usm[i]), :]
                             self.fue[i, :] = np.linalg.solve(np.dot(Vi.T, Vi) * (self.a - self.b) + XX,
                                                            np.sum(Vi, axis=0) * self.a)
-                            loss += 0.5 * self.lu * np.sum(self.fue[i, :] ** 2)
+                        loss += 0.5 * self.lu * np.sum(self.fue[i, :] ** 2)
                     Ur = self.fue[np.array(self.u_rated), :]
                     XX = np.dot(Ur.T, Ur) * self.b
                     for j in self.ism:
-                        B = XX
+                        B = XX.copy()
                         Fe = self.fie[j, :].copy()
                         if len(self.ism[j]) > 0:
                             Uj = self.fue[np.array(self.ism[j]), :]
