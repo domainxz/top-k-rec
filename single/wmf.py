@@ -60,31 +60,41 @@ class WMF(REC):
 
     def train(self, max_iter: int = 200, tol: float = 1e-4, model_path: str = None) -> None:
         loss = np.exp(50)
-        Ik   = np.eye(self.k, dtype=np.float32)
+        ik   = np.eye(self.k, dtype=np.double)
+        xx   = np.zeros((self.k, self.k), dtype=np.double)
         if model_path is not None and os.path.isdir(model_path):
             self.import_embeddings(model_path)
         for it in range(max_iter):
             t1 = time.time()
-            loss_old = loss
-            loss     = 0
-            Vr = self.fie[np.array(self.i_rated), :]
-            XX = np.dot(Vr.T, Vr)*self.b + Ik*self.lu
-            for i in self.usm:
-                if len(self.usm[i]) > 0:
-                    Vi = self.fie[np.array(self.usm[i]), :]
-                    self.fue[i, :] = np.linalg.solve(np.dot(Vi.T, Vi)*(self.a-self.b)+XX, np.sum(Vi, axis=0)*self.a)
-                loss += 0.5 * self.lu * np.sum(self.fue[i,:]**2)
-            Ur = self.fue[np.array(self.u_rated), :]
-            XX = np.dot(Ur.T, Ur)*self.b
-            for j in self.ism:
-                if len(self.ism[j]) > 0:
-                    Uj = self.fue[np.array(self.ism[j]), :]
-                    B  = np.dot(Uj.T, Uj)*(self.a-self.b) + XX 
-                    self.fie[j, :] = np.linalg.solve(B+Ik*self.lv, np.sum(Uj, axis = 0) * self.a)
-                    loss += 0.5 * len(self.ism[j])*self.a
-                    loss += 0.5 * np.linalg.multi_dot((self.fie[j, :], B, self.fie[j, :]))
-                    loss -= np.sum(np.multiply(Uj, self.fie[j, :]))*self.a
-                loss += 0.5 * self.lv * np.sum(self.fie[j, :]**2)
+            loss_old, loss = loss, 0
+            vr = self.fie[np.array(self.i_rated),:]
+            np.dot(vr.T, vr*self.b, out=xx)
+            xx += ik*self.lu
+            for uid in self.usm:
+                if len(self.usm[uid]) > 0:
+                    v = self.fie[np.array(list(self.usm[uid].keys()))]
+                    r = np.array(list(self.usm[uid].values()))
+                    self.fue[uid] = np.linalg.solve(
+                        xx+np.dot(v.T, v)*(self.a-self.b)
+                        , np.sum(v*r.reshape(-1,1), axis=0)*self.a
+                    )
+                loss += 0.5 * self.lu * np.sum(self.fue[uid]**2)
+            ur = self.fue[np.array(self.u_rated),:]
+            np.dot(ur.T, ur*self.b, out=xx)
+            for iid in self.ism:
+                if len(self.ism[iid]) > 0:
+                    u = self.fue[np.array(list(self.ism[iid].keys()))]
+                    r = np.array(list(self.ism[iid].values()))
+                    A  = xx.copy()
+                    A += np.dot(u.T, u)*(self.a-self.b)
+                    self.fie[iid] = np.linalg.solve(
+                        A+ik*self.lv
+                        , np.sum(u*r.reshape(-1,1), axis=0)*self.a
+                    )
+                    loss += 0.5 * np.sum(r**2) * self.a
+                    loss += 0.5 * np.linalg.multi_dot((self.fie[iid], A, self.fie[iid]))
+                    loss -= np.sum(np.dot(u, self.fie[iid])*r)*self.a
+                loss += 0.5 * self.lv * np.sum(self.fie[iid]**2)
             cond = np.abs(loss_old - loss) / loss_old
             tprint('Iter %3d, loss %.6f, converge %.6f, time %.2fs'%(it, loss, cond, time.time()-t1))
             if cond < tol:
